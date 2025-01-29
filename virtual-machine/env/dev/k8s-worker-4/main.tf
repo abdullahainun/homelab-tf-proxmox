@@ -8,14 +8,11 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "homelab-tools-terraform"
-    key    = "virtual-machine/templates/talos"
     endpoints = {
       s3 = "https://minio-api.abdullahainun.site" # Minio endpoint
     }
-
-    access_key = var.s3_access_key
-    secret_key = var.s3_secret_key
+    bucket = "homelab-tools-terraform"
+    key    = "state/virtual-machine/k8s-worker-4"
 
     region                      = "main" # Region validation will be skipped
     skip_credentials_validation = true   # Skip AWS related checks and validations
@@ -27,10 +24,16 @@ terraform {
 
 }
 
-module "default" {
-  source        = "../../../modules/virtual-machine-with-talos-template/"
-  s3_access_key = var.s3_access_key
-  s3_secret_key = var.s3_secret_key
-  pve_username  = var.pve_username
-  pve_password  = var.pve_password
+provider "proxmox" {
+  endpoint = "https://pve.abdullahainun.site/"
+  insecure = true
+  ssh {
+    agent = true
+  }
+}
+
+module "k8s-worker-4" {
+  source    = "../../../modules/virtual-machine-with-talos/"
+  name      = "k8s-worker-4"
+  node_name = "pve3"
 }

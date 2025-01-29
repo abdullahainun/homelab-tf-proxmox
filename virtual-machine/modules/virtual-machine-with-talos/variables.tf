@@ -12,7 +12,13 @@ variable "node_name" {
 }
 
 variable "vm_id" {
-  default     = "1234"
+  default     = 1234
+  type        = number
+  description = "proxmox virtual machine id"
+}
+
+variable "file_id" {
+  default     = "nfs-repo:iso/metal-amd64.iso"
   type        = string
   description = "proxmox virtual machine id"
 }

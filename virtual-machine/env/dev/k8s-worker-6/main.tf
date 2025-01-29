@@ -12,7 +12,7 @@ terraform {
       s3 = "https://minio-api.abdullahainun.site" # Minio endpoint
     }
     bucket = "homelab-tools-terraform"
-    key    = "state/virtual-machine/k8s-worker-4"
+    key    = "state/virtual-machine/k8s-worker-6"
 
     region                      = "main" # Region validation will be skipped
     skip_credentials_validation = true   # Skip AWS related checks and validations
@@ -32,9 +32,9 @@ provider "proxmox" {
   }
 }
 
-module "k8s-worker-4" {
+module "k8s-worker-6" {
   source    = "../../../modules/virtual-machine-with-talos/"
-  name      = "k8s-worker-4"
+  name      = "k8s-worker-6"
   node_name = "pve3"
-  vm_id     = 105
+  vm_id     = 107
 }

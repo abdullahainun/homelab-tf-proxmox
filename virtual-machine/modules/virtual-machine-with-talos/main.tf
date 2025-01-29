@@ -49,7 +49,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
 
   disk {
     datastore_id = "local-lvm"
-    file_id      = proxmox_virtual_environment_download_file.iso.id
+    file_id      = var.file_id
     interface    = "scsi0"
   }
 
@@ -74,16 +74,4 @@ resource "proxmox_virtual_environment_vm" "vm" {
   }
 
   serial_device {}
-}
-
-resource "proxmox_virtual_environment_download_file" "iso" {
-  content_type = "iso"
-  datastore_id = "nfs-repo"
-  node_name    = var.node_name
-  url          = "https://factory.talos.dev/image/376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba/v1.9.2/metal-amd64.iso"
-
-  lifecycle {
-    create_before_destroy = false
-    prevent_destroy       = true
-  }
 }

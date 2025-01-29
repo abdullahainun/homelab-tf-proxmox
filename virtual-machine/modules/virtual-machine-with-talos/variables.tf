@@ -18,7 +18,7 @@ variable "vm_id" {
 }
 
 variable "file_id" {
-  default     = "nfs-repo:iso/metal-amd64.iso"
+  default     = "nfs-repo:iso/metal-amd64.iso" # The ID format is <datastore_id>:<content_type>/<file_name>
   type        = string
-  description = "proxmox virtual machine id"
+  description = "proxmox file id"
 }

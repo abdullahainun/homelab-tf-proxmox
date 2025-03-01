@@ -11,7 +11,7 @@ terraform {
     endpoints = {
       s3 = "https://minio-api.abdullahainun.site" # Minio endpoint
     }
-    bucket = "homelab-tools-terraform"
+    bucket = "homelab-tf-proxmox"
     key    = "state/virtual-machine/k8s-worker-6"
 
     region                      = "main" # Region validation will be skipped
@@ -37,4 +37,5 @@ module "k8s-worker-6" {
   name      = "k8s-worker-6"
   node_name = "pve3"
   vm_id     = 107
+  vlan_id   = 200
 }

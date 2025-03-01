@@ -17,6 +17,12 @@ variable "vm_id" {
   description = "proxmox virtual machine id"
 }
 
+variable "vlan_id" {
+  default     = 200
+  type        = number
+  description = "proxmox virtual network virtual lan id"
+}
+
 variable "file_id" {
   default     = "nfs-repo:iso/metal-amd64.iso" # The ID format is <datastore_id>:<content_type>/<file_name>
   type        = string

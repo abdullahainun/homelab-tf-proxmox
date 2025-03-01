@@ -33,9 +33,10 @@ provider "proxmox" {
 }
 
 module "k8s-worker-6" {
-  source    = "../../../modules/virtual-machine-with-talos/"
-  name      = "k8s-worker-6"
-  node_name = "pve3"
-  vm_id     = 107
-  vlan_id   = 200
+  source      = "../../../modules/virtual-machine-with-talos/"
+  name        = "k8s-worker-6"
+  description = "Worker node number 6 of homelab-k8s"
+  node_name   = "pve3"
+  vm_id       = 107
+  vlan_id     = 200
 }

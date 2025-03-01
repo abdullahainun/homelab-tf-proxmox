@@ -18,7 +18,7 @@ provider "proxmox" {
 
 resource "proxmox_virtual_environment_vm" "vm" {
   name        = var.name
-  description = "worker node of homelab-k8s cluster"
+  description = var.description
   tags        = ["homelab-k8s", "talos", "worker"]
 
   node_name = var.node_name

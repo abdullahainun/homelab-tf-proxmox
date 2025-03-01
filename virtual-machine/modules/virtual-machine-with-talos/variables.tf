@@ -4,6 +4,11 @@ variable "name" {
   description = "virtual machine name"
 }
 
+variable "description" {
+  default     = ""
+  type        = string
+  description = "virtual machine description"
+}
 
 variable "node_name" {
   default     = "pve1"

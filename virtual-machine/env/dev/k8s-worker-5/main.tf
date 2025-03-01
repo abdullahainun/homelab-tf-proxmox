@@ -38,4 +38,5 @@ module "k8s-worker-5" {
   description = "Worker node number 5 of homelab-k8s"
   node_name   = "pve3"
   vm_id       = 106
+  vlan_id     = 200
 }

@@ -1,35 +1,52 @@
-variable "name" {
-  default     = "vm1"
-  type        = string
-  description = "virtual machine name"
+variable "proxmox" {
+  description = "Proxmox configuration"
+  type = object({
+    endpoint = string
+    insecure = bool
+    # username  = string
+    # password  = optional(string)
+    # api_token = optional(string)
+    # ssh_agent = optional(string, false)
+  })
+  sensitive = true
 }
 
-variable "description" {
-  default     = ""
-  type        = string
-  description = "virtual machine description"
+variable "cluster" {
+  description = "Cluster configuration"
+  type = object({
+    network_dhcp  = optional(bool, false)
+    gateway       = string
+    cidr          = number
+    vlan_id       = optional(number, null)
+    name          = string
+    talos_version = optional(string, "v1.8.2")
+  })
 }
 
-variable "node_name" {
-  default     = "pve1"
-  type        = string
-  description = "proxmox node name"
+variable "vms" {
+  description = "Configuration for cluster nodes"
+  type = map(object({
+    host_node      = string
+    machine_type   = string
+    datastore_id   = optional(string, "local-lvm")
+    ip             = string
+    cpu            = number
+    ram_dedicated  = number
+    os_disk_size   = number
+    data_disk_size = number
+    gpu            = optional(string)
+  }))
 }
 
-variable "vm_id" {
-  default     = 1234
-  type        = number
-  description = "proxmox virtual machine id"
-}
-
-variable "vlan_id" {
-  default     = 200
-  type        = number
-  description = "proxmox virtual network virtual lan id"
-}
-
-variable "file_id" {
-  default     = "nfs-repo:iso/metal-amd64.iso" # The ID format is <datastore_id>:<content_type>/<file_name>
-  type        = string
-  description = "proxmox file id"
+variable "pci" {
+  description = "Configuration mapping PCI"
+  type = map(object({
+    name         = string
+    id           = string
+    iommu_group  = number
+    node         = string
+    path         = string
+    subsystem_id = string
+  }))
+  default = null
 }

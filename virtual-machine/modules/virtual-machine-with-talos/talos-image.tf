@@ -35,6 +35,5 @@ resource "proxmox_virtual_environment_download_file" "this" {
   file_name               = "${var.cluster.name}-talos-${split("_", each.key)[1]}-${split("_", each.key)[2]}-${local.platform}-${local.arch}.img"
   url                     = "${local.factory_url}/image/${split("_", each.key)[1]}/${split("_", each.key)[2]}/${local.platform}-${local.arch}.raw.gz"
   decompression_algorithm = "gz"
-  overwrite               = true
-  verify                  = false
+  overwrite               = false
 }

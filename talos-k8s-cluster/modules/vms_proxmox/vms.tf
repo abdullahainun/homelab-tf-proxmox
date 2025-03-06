@@ -40,8 +40,7 @@ resource "proxmox_virtual_environment_vm" "vms" {
     ssd          = true
     file_format  = "raw"
     size         = each.value.os_disk_size
-    file_id      = proxmox_virtual_environment_download_file.this["${each.value.host_node}_${each.value.gpu != null ? local.image_nvidia_id : local.image_id}"].id
-    # file_id = "nfs-repo:iso/metal-amd64.iso"
+    file_id      = var.cluster.file_id
   }
 
   # data disk

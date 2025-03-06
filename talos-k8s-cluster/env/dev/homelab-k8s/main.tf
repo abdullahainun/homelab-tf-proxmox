@@ -38,15 +38,15 @@ module "talos_k8s" {
   }) }
 }
 
-# module "init_k8s" {
-#   depends_on = [module.talos_k8s]
-#   source     = "./modules/init_k8s"
-#   count      = (var.certificate == null) ? 0 : 1
+module "init_k8s" {
+  depends_on = [module.talos_k8s]
+  source     = "../../../modules/init_k8s"
+  count      = (var.certificate == null) ? 0 : 1
 
-#   providers = {
-#     kubernetes = kubernetes
-#   }
+  providers = {
+    kubernetes = kubernetes
+  }
 
-#   certificate = var.certificate
-# }
+  certificate = var.certificate
+}
 

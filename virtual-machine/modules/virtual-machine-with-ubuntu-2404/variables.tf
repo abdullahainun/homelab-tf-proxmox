@@ -22,3 +22,17 @@ variable "file_id" {
   type        = string
   description = "proxmox file id"
 }
+
+variable "resource" {
+  description = "resource specification for virtual machine"
+  type = object({
+    datastore_id   = optional(string, "local-lvm")
+    ip             = string
+    cpu            = number
+    ram_dedicated  = number
+    data_disk_size = number
+    gpu            = optional(string)
+    cidr           = string
+    gateway        = string
+  })
+}

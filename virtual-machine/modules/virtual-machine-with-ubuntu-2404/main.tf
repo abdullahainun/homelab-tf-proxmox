@@ -20,6 +20,8 @@ resource "proxmox_virtual_environment_vm" "vm" {
   name        = var.name
   description = "jumhost machine"
   tags        = ["vm", "ubuntu", "jumphost"]
+  on_boot     = true
+  started     = true
 
   node_name = var.node_name
   vm_id     = var.vm_id
@@ -38,28 +40,35 @@ resource "proxmox_virtual_environment_vm" "vm" {
   }
 
   cpu {
-    cores = 2
-    type  = "x86-64-v2-AES" # recommended for modern CPUs
+    cores = var.resource.cpu
+    type  = "host"
   }
 
   memory {
-    dedicated = 2048
-    floating  = 2048 # set equal to dedicated to enable ballooning
+    dedicated = var.resource.ram_dedicated
   }
 
   disk {
-    datastore_id = "local-lvm"
-    file_id      = var.file_id
+    datastore_id = var.resource.datastore_id
     interface    = "scsi0"
+    iothread     = true
+    cache        = "writethrough"
+    discard      = "on"
+    ssd          = true
+    file_format  = "raw"
+    size         = var.resource.data_disk_size
   }
 
   initialization {
+    datastore_id = var.resource.datastore_id
     ip_config {
       ipv4 {
-        address = "dhcp"
+        address = var.resource == true ? "dhcp" : "${var.resource.ip}/${var.resource.cidr}"
+        gateway = var.resource == true ? null : var.resource.gateway
       }
     }
   }
+
 
   network_device {
     bridge = "vmbr0"

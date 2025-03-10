@@ -22,4 +22,15 @@ module "jumphost" {
   name      = "jumphost"
   node_name = "pve0"
   vm_id     = 100
+  resource = {
+    ip                = "10.10.10.11"
+    cpu               = 2
+    ram_dedicated     = 8000
+    path_in_datastore = "vm-100-disk-0"
+    data_disk_size    = 100
+    datastore_id      = "local-lvm"
+    ip                = "192.168.43.99"
+    cidr              = 24
+    gateway           = "192.168.43.254"
+  }
 }

@@ -6,7 +6,7 @@ terraform {
       s3 = "https://minio-api.abdullahainun.site" # Minio endpoint
     }
     bucket = "homelab-tf-proxmox"
-    key    = "state/talos-k8s-cluster/gns3"
+    key    = "state/virtual-machine/gns3"
 
     region                      = "main" # Region validation will be skipped
     skip_credentials_validation = true   # Skip AWS related checks and validations

@@ -17,7 +17,7 @@ resource "proxmox_virtual_environment_vm" "vms" {
   }
 
   cpu {
-    cores = var.resource.cpu
+    cores = each.value.cpu
     type  = "host"
   }
 
